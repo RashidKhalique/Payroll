@@ -30,7 +30,7 @@ app.use('/api', hrexpensiveroute);
 
 
 app.get('/', (req, res) => {
-    res.status(200).json({ success: true, message: "Root Route Works" });
+    res.status(200).json({ success: true, message: "Root Route Works Fine " });
 });
 
 app.listen(port, () => {
