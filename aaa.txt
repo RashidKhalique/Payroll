@@ -1,0 +1,13 @@
+HR Payroll
+
+
+Data Geted 
+
+
+1- Travelling Kharcha
+2-  Hotling 
+3- Salary
+4- Medical
+5- others
+
+individual and list data provided 
