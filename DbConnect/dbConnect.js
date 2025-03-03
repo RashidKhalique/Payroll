@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-const mongoUrl = "mongodb+srv://rashid:12345@hrpayroll.9v9yo.mongodb.net/";
-console.log(mongoUrl);
+import dotenv from "dotenv";
+dotenv.config();
+const mongoUrl = process.env.MONGODB_URI
 
 const dbConnect = async () => {
     try {

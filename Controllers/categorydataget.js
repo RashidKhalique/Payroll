@@ -82,7 +82,6 @@ const findExpensesByMonth = async (req,res) => {
         Others : 0
       };
   
-      // Calculate total amount for each category
       expenses.forEach(expense => {
         expense.categories.forEach(category => {
           if (category === "Salary") {
@@ -216,6 +215,11 @@ const findExpensesByMonth = async (req,res) => {
   };
  
   
+
+
+
+
   export{findExpensesByMonth,findExpensesByYear,findExpensesByweek,findExpensesByDate}
   
-  
+  //  Rashid Khalique (Mern Stack Modification ProjectCategoryDataGet (Cluster0 Database)) 
+  // All are Modified of Project CategoryDataGet Folder

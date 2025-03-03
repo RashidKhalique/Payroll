@@ -13,7 +13,7 @@ const userschema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: 'admin'
+        default: 'user'
     },
     Isactive: {
         type: Boolean,
