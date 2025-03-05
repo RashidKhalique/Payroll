@@ -25,7 +25,7 @@ const categoriespost = async (req, res) => {
             categories,
         });
 
-        res.status(201).json({ message: 'Expense created successfully', expense: newExpense });
+        res.status(201).json({ success:true, message: 'Expense created successfully', expense: newExpense });
 
     } catch (error) {
         res.status(500).json({ success: false, message: 'An unexpected error occurred. Please try again later.',error });
@@ -55,7 +55,7 @@ const updateExpense = async (req, res) => {
         }
       }
   
-      res.status(200).json({ message: "Project updated successfully!" });
+      res.status(200).json({ success:true, message: "Project updated successfully!" });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error updating project", error: error.message });

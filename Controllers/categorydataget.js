@@ -97,6 +97,7 @@ const findExpensesByMonth = async (req,res) => {
       });
   
       res.status(200).json({
+        success:true,
         expense: expenses,
         totalAmount: Yearrecords
       });
