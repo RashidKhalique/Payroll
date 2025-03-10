@@ -28,6 +28,17 @@ app.use(express.json());
 app.use('/api', authroute);
 app.use('/api', hrexpensiveroute);
 
+
+app.post('*',(req,res)=>{
+    res.status(400).json({ message: "Root Route not found" });
+})
+
+app.get('*', (req, res) => {
+    res.status(404).json({
+        message: "404 Route not Found"
+    });
+  });
+
 // Test route
 app.get('/', (req, res) => {
     res.status(200).json({ success: true, message: "Root Route Works in serious" });
