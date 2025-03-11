@@ -37,13 +37,15 @@ const findExpensesByMonth = async (req,res) => {
       // Calculate total amount for each category
       expenses.forEach(expense => {
         expense.categories.forEach(category => {
+          console.log(Monthrecords);
+          
           if (category === "Salary") {
             Monthrecords.Salary += expense.amount;
           } else if (category === "Travelling") {
             Monthrecords.Travelling += expense.amount;
-          } else if (category === "office") {
+          } else if (category === "Hotel") {
             Monthrecords.Hotel += expense.amount;
-          } else if (category === "more") {
+          } else if (category === "Others") {
             Monthrecords.Others += expense.amount;
           }
         });
@@ -74,12 +76,14 @@ const findExpensesByMonth = async (req,res) => {
       const expenses = await expense.find({
         date: { $gte: startOfYear, $lte: endOfYear }
       });
+      // console.log(expenses);
       
       let Yearrecords = {
         Salary: 0,
         Travelling: 0,
         Hotel: 0,
-        Others : 0
+        Others : 0,
+
       };
   
       expenses.forEach(expense => {
@@ -88,11 +92,12 @@ const findExpensesByMonth = async (req,res) => {
             Yearrecords.Salary += expense.amount;
           } else if (category === "Travelling") {
             Yearrecords.Travelling += expense.amount;
-          } else if (category === "office") {
+          } else if (category === "Hotel") {
             Yearrecords.Hotel += expense.amount;
-          } else if (category === "more") {
+          } else if (category === "Others") {
             Yearrecords.Others += expense.amount;
           }
+          // total = Yearrecords.Salary  +   Yearrecords.Travelling +   Yearrecords.Hotel + Yearrecords.Others;
         });
       });
   
@@ -156,9 +161,9 @@ const findExpensesByMonth = async (req,res) => {
             Weekrecords.Salary += expense.amount;
           } else if (category === "Travelling") {
             Weekrecords.Travelling += expense.amount;
-          } else if (category === "office") {
+          } else if (category === "Hotel") {
             Weekrecords.Hotel += expense.amount;
-          } else if (category === "more") {
+          } else if (category === "others") {
             Weekrecords.Others += expense.amount;
           }
         });
