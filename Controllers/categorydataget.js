@@ -115,71 +115,122 @@ const findExpensesByMonth = async (req,res) => {
   };
   
 
-  const findExpensesByweek = async (req, res) => {
-    try {
+  // const findExpensesByweek = async (req, res) => {
+  //   try {
 
-      const today = new Date();
+  //     const today = new Date();
   
-      const currentDayOfWeek = today.getDay();
+  //     const currentDayOfWeek = today.getDay();
     
       
 
-      const daysToSubtract = (currentDayOfWeek === 0 ? 6 : currentDayOfWeek - 1);  
-      const startOfWeek = new Date(today);
+  //     const daysToSubtract = (currentDayOfWeek === 0 ? 6 : currentDayOfWeek - 1);  
+  //     const startOfWeek = new Date(today);
       
-      startOfWeek.setDate(today.getDate() - daysToSubtract);  
+  //     startOfWeek.setDate(today.getDate() - daysToSubtract);  
   
       
-      const endOfWeek = new Date(startOfWeek);
+  //     const endOfWeek = new Date(startOfWeek);
+  //     console.log(endOfWeek);
       
-      endOfWeek.setDate(startOfWeek.getDate() + 6);  
+  //     // console.log(startOfWeek);
+      
+  //     endOfWeek.setDate(startOfWeek.getDate() + 6);  
    
-      const expenses = await expense.aggregate([
-        {
-          $match: {
-            date: {
-              $gte: startOfWeek, 
-              $lte: endOfWeek   
-            }
-          }
-        }
-      ]); 
+  //     const expenses = await expense.aggregate([
+  //       {
+  //         $match: {
+  //           date: {
+  //             $gte: startOfWeek, 
+  //             $lte: endOfWeek   
+  //           }
+  //         }
+  //       }
+  //     ]); 
 
-
+  //   // console.log(expenses);
+    
       
-      let Weekrecords = {
-        Salary: 0,
-        Travelling: 0,
-        Hotel: 0,
-        Others : 0
-      };
+  //     let Weekrecords = {
+  //       Salary: 0,
+  //       Travelling: 0,
+  //       Hotel: 0,
+  //       Others : 0
+  //     };
   
-      // Calculate total amount for each category
-      expenses.forEach(expense => {
-        expense.categories.forEach(category => {
-          if (category === "Salary") {
-            Weekrecords.Salary += expense.amount;
-          } else if (category === "Travelling") {
-            Weekrecords.Travelling += expense.amount;
-          } else if (category === "Hotel") {
-            Weekrecords.Hotel += expense.amount;
-          } else if (category === "others") {
-            Weekrecords.Others += expense.amount;
-          }
-        });
+  //     // Calculate total amount for each category
+  //     expenses.forEach(expense => {
+  //       expense.categories.forEach(category => {
+  //         if (category === "Salary") {
+  //           Weekrecords.Salary += expense.amount;
+  //         } else if (category === "Travelling") {
+  //           Weekrecords.Travelling += expense.amount;
+  //         } else if (category === "Hotel") {
+  //           Weekrecords.Hotel += expense.amount;
+  //         } else if (category === "others") {
+  //           Weekrecords.Others += expense.amount;
+  //         }
+  //       });
+  //     });
+  //       res.status(201).json({
+  //         sucess: true,
+  //         expense : expenses,
+  //         total : Weekrecords
+  //       })
+  
+  //   } catch (err) {
+  //     console.error('Error fetching current week expenses (Monday to Sunday):', err);
+  //     res.status(500).json({ message: 'Error fetching current week expenses', error: err.message });
+  //   }
+  // };
+  
+  
+  
+  
+  
+  
+  
+  const findExpensesByweek = async (req, res) => {
+    try {
+      const today = new Date();
+      const currentDayOfWeek = today.getDay();
+      const daysToSubtract = currentDayOfWeek === 0 ? 6 : currentDayOfWeek - 1;
+  
+      const startOfWeek = new Date(today);
+      startOfWeek.setDate(today.getDate() - daysToSubtract);
+      startOfWeek.setHours(0, 0, 0, 0);
+  
+      const endOfWeek = new Date(startOfWeek);
+      endOfWeek.setDate(startOfWeek.getDate() + 6);
+      endOfWeek.setHours(0, 0, 0, 0);
+  
+      console.log("Start of Week:", startOfWeek);
+      console.log("End of Week:", endOfWeek);
+  
+      const expenses = await expense.find({
+        date: { 
+          $gte: startOfWeek, 
+          $lte: endOfWeek 
+        },
       });
-        res.status(201).json({
-          sucess: true,
-          expense : expenses,
-          total : Weekrecords
-        })
+      
   
+      console.log(expenses);
+  
+      res.status(200).json({
+        success: true,
+        data: expenses,
+      });
     } catch (err) {
-      console.error('Error fetching current week expenses (Monday to Sunday):', err);
-      res.status(500).json({ message: 'Error fetching current week expenses', error: err.message });
+      console.error("Error:", err);
+      res.status(500).json({
+        success: false,
+        message: "Failed to fetch weekly expenses",
+      });
     }
   };
-
+  
+  
 
   const findExpensesByDate = async (req, res) => {
     const { dateparm } = req.params;
